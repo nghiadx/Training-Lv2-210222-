@@ -1,5 +1,4 @@
-﻿using Infrastructure.Models.EntitiesBase;
-namespace Infrastructure.Core.Infrastructures
+﻿namespace Infrastructure.Core.Infrastructures
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {

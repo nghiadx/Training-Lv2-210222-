@@ -1,7 +1,7 @@
 ﻿using Infrastructure.Models.EntitiesBase;
 namespace Infrastructure.Core.Infrastructures
 {
-    public interface IGenericRepository<TEntity> where TEntity : class, IBaseEntities
+    public interface IGenericRepository<TEntity> where TEntity : class
     {
         Task<TEntity> Get(int? id);
         IEnumerable<TEntity> GetAll();

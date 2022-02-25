@@ -1,12 +1,11 @@
 ﻿using Infrastructure.DataContext;
-using Infrastructure.Models.EntitiesBase;
 using Microsoft.EntityFrameworkCore;
 #nullable disable
 
 namespace Infrastructure.Core.Infrastructures
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity>
-    where TEntity : class, IBaseEntities
+    where TEntity : class
     {
         protected readonly DatabaseContext _context;
         private DbSet<TEntity> _dbset;

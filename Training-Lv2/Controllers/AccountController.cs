@@ -7,12 +7,12 @@ using System.Security.Claims;
 
 namespace Training_Lv2.Controllers
 {
-    public class UserController : Controller
+    public class AccountController : Controller
     {
 
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-        public UserController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -21,11 +21,11 @@ namespace Training_Lv2.Controllers
         [HttpGet, AllowAnonymous]
         public IActionResult Register()
         {
-            LoginViewModel model = new LoginViewModel();
+            RegisterViewModel model = new RegisterViewModel();
             return View(model);
         }
         [HttpPost, AllowAnonymous]
-        public async Task<IActionResult> Register(LoginViewModel request)
+        public async Task<IActionResult> Register(RegisterViewModel request)
         {
             if (ModelState.IsValid)
             {
@@ -98,7 +98,7 @@ namespace Training_Lv2.Controllers
                 if (result.Succeeded)
                 {
                     await _userManager.AddClaimAsync(user, new Claim("UserRole", "Admin"));
-                    return RedirectToAction("Dashboard");
+                    return RedirectToAction("Index", "Members");
                 }
                 else if (result.IsLockedOut)
                 {
@@ -111,6 +111,11 @@ namespace Training_Lv2.Controllers
                 }
             }
             return View(model);
+        }
+
+        public async Task<IActionResult> Logout() {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Members");
         }
     }
 }

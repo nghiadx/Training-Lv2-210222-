@@ -1,11 +1,13 @@
 ﻿#nullable disable
 using Application.Services.Interface;
 using Infrastructure.Models.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Training_Lv2.Controllers
 {
+    [Authorize(Roles = "User, Admin")]
     public class MembersController : Controller
     {
         private readonly IMemberService _memberService;

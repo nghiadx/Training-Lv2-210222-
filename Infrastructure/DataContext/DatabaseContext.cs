@@ -1,10 +1,12 @@
 ﻿using Infrastructure.Models.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 #nullable disable
 
 namespace Infrastructure.DataContext
 {
-    public class DatabaseContext : DbContext
+    public class DatabaseContext : IdentityDbContext<IdentityUser>
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
         public static OptionsBuild ops = new OptionsBuild();
@@ -23,5 +25,6 @@ namespace Infrastructure.DataContext
         }
         public DbSet<Member> Members { get; set; }
         public DbSet<OptIn> optIns { get; set; }
+        public DbSet<ApplicationUser> applicationUsers { get; set; }
     }
 }

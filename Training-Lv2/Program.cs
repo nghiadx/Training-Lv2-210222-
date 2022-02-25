@@ -4,9 +4,9 @@ using Infrastructure.Core.IRepositories;
 using Infrastructure.Core.Repositories;
 using Infrastructure.Core.UnitOfWork;
 using Infrastructure.DataContext;
+using Infrastructure.Models.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,17 +21,29 @@ builder.Services.AddMvcCore().AddApiExplorer();
 builder.Services.AddTransient<IMemberRepository, MemberRepository>();
 builder.Services.AddTransient<IMemberService, MemberService>();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
-builder.Services.AddIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-               .AddEntityFrameworkStores<DatabaseContext>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+    options.User.RequireUniqueEmail = true;
+})
+    .AddEntityFrameworkStores<DatabaseContext>()
+    .AddDefaultTokenProviders();
+
+
 //var mapperConfig = new MapperConfiguration(mc =>
 //{
 //    mc.AddProfile(new AutoMapperConfig());
 //});
 //IMapper mapper = mapperConfig.CreateMapper();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = $"/account/login";
+    options.LogoutPath = $"/account/logout";
+    options.AccessDeniedPath = $"/account/accessDenied";
+});
+
 var app = builder.Build();
 
-app.UseAuthentication();
 
 
 // Configure the HTTP request pipeline.
@@ -47,6 +59,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

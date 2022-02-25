@@ -11,7 +11,6 @@ namespace Application.ViewModels.Members
         public string Email { get; set; }
 
         [Required]
-        [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$")]
         public string Password { get; set; }
 
         public bool RememberMe { get; set; }

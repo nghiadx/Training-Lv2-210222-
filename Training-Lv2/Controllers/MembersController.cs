@@ -16,13 +16,13 @@ namespace Training_Lv2.Controllers
         {
             _memberService = memberService;
         }
-        // GET: MembersController
+
+        //List Member
         public ActionResult Index()
         {
             return View(_memberService.GetAllMembers().ToList());
         }
 
-        // GET: MembersController/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null) return NotFound();
@@ -32,13 +32,11 @@ namespace Training_Lv2.Controllers
             return View(member);
         }
 
-        // GET: MembersController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: MembersController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Member member)
@@ -62,9 +60,6 @@ namespace Training_Lv2.Controllers
             return View(member);
         }
 
-        // POST: Members1/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Member member)

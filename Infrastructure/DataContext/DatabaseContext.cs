@@ -25,6 +25,5 @@ namespace Infrastructure.DataContext
         }
         public DbSet<Member> Members { get; set; }
         public DbSet<OptIn> optIns { get; set; }
-        public DbSet<ApplicationUser> applicationUsers { get; set; }
     }
 }

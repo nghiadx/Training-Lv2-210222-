@@ -1,6 +1,5 @@
 ﻿using Application.Services.Interface;
 using Application.ViewModels.Members;
-using AutoMapper;
 using Infrastructure.Core.UnitOfWork;
 using Infrastructure.Models.Entities;
 
